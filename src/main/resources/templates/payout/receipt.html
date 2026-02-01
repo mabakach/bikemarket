@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head-resources :: head"></head>
+<body>
+<div class="container mt-5">
+    <h2>Quittung</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Quittung Nr. <span th:text="${receipt.receiptNumber}"></span></h5>
+            <p><strong>Datum:</strong> <span th:text="${#dates.format(receipt.issuedAt, 'dd.MM.yyyy HH:mm')}"></span></p>
+            <p><strong>Markt:</strong> <span th:text="${receipt.marketName}"></span></p>
+            <p><strong>Verkäufer:</strong> <span th:text="${receipt.sellerName}"></span></p>
+            <p><strong>Fahrrad:</strong> <span th:text="${receipt.bikeDescription}"></span></p>
+            <p><strong>Verkaufspreis:</strong> <span th:text="${receipt.salePrice}"></span> EUR</p>
+            <p><strong>Provision:</strong> <span th:text="${receipt.commission}"></span> EUR</p>
+            <p><strong>Erlös:</strong> <span th:text="${receipt.salePrice.subtract(receipt.commission)}"></span> EUR</p>
+        </div>
+    </div>
+    <a th:href="@{/payout}" class="btn btn-secondary mt-3">Zurück zur Auszahlungsliste</a>
+</div>
+<div th:replace="fragments/scripts :: body"></div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

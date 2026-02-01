@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head-resources :: head"></head>
+<body>
+<div class="container mt-5">
+    <h2>Fahrradbörsen</h2>
+    <a class="btn btn-success mb-3" th:href="@{/events/new}">Neue Börse anlegen</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Datum</th>
+                <th>Beschreibung</th>
+                <th>Aktionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="event : ${events}">
+                <td th:text="${event.name}"></td>
+                <td th:text="${event.date}"></td>
+                <td th:text="${event.description}"></td>
+                <td>
+                    <a th:href="@{'/events/edit/' + ${event.id}}" class="btn btn-primary btn-sm">Bearbeiten</a>
+                    <form th:action="@{'/events/delete/' + ${event.id}}" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Wirklich löschen?');">Löschen</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="fragments/scripts :: body"></div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

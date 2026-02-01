@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head-resources :: head"></head>
+<body>
+<div th:replace="fragments/header :: body"></div>
+<div class="container mt-5">
+    <h2 th:text="${bike.id == null} ? 'Neues Fahrrad registrieren' : 'Fahrrad bearbeiten'"></h2>
+    <form th:action="${bike.id == null} ? @{/bikes} : @{'/bikes/edit/' + ${bike.id}}" method="post">
+        <div class="mb-3">
+            <label for="eventId" class="form-label">Markt</label>
+            <select class="form-select" id="eventId" name="eventId" required>
+                <option th:each="event : ${events}" th:value="${event.id}" th:text="${event.name}" th:selected="${bike.event != null} ? ${event.id} == ${bike.event.id} : false"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Beschreibung</label>
+            <input type="text" class="form-control" id="description" name="description" th:value="${bike.description}" required>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Preis</label>
+            <input type="number" step="0.01" class="form-control" id="price" name="price" th:value="${bike.price}" required>
+            <div th:if="${events != null}">
+                <small class="form-text text-muted" th:if="${#lists.size(events) > 0}">
+                    <span th:if="${bike.event != null}">
+                        Provision für diesen Markt: <span th:text="${bike.event.commissionPercent}"></span>%<br/>
+                        Bei Ihrem Verkaufspreis:
+                        <span th:text="${bike.price != null ? #numbers.formatDecimal(bike.price * bike.event.commissionPercent / 100, 1, 'POINT', 2, 'NONE') : '0.00'}"></span> <span th:text="${currency}"></span> Provision
+                    </span>
+                    <span th:if="${bike.event == null}">
+                        Wählen Sie einen Markt, um die Provision zu sehen.
+                    </span>
+                </small>
+            </div>
+        </div>
+        <div th:if="${#fields.hasErrors('description')}">
+            <div class="alert alert-danger" th:errors="*{description}"></div>
+        </div>
+        <div th:if="${#fields.hasErrors('price')}">
+            <div class="alert alert-danger" th:errors="*{price}"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Speichern</button>
+        <a th:href="@{/bikes}" class="btn btn-secondary">Abbrechen</a>
+    </form>
+</div>
+<div th:replace="fragments/scripts :: body"></div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

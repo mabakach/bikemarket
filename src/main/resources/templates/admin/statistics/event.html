@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head-resources :: head"></head>
+<body>
+<div class="container mt-5">
+    <h2 th:text="'Statistik für Börse: ' + ${event.name}"></h2>
+    <div class="mb-3">
+        <a th:href="@{'/admin/statistics/event/' + ${event.id} + '/export'}" class="btn btn-success">CSV Export</a>
+    </div>
+    <table class="table table-bordered">
+        <tr><th>Gesamtanzahl Fahrräder</th><td th:text="${stats.totalBikes}"></td></tr>
+        <tr><th>Entgegengenommen</th><td th:text="${stats.receivedBikes}"></td></tr>
+        <tr><th>Verkauft</th><td th:text="${stats.soldBikes}"></td></tr>
+        <tr><th>Zurückgegeben</th><td th:text="${stats.returnedBikes}"></td></tr>
+        <tr><th>Gesamtumsatz</th><td th:text="${stats.totalSales}"></td></tr>
+        <tr><th>Gesamtprovision</th><td th:text="${stats.totalCommission}"></td></tr>
+    </table>
+    <h3>Fahrräder im Detail</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Beschreibung</th>
+                <th>Verkäufer</th>
+                <th>Status</th>
+                <th>Verkaufspreis</th>
+                <th>Provision</th>
+                <th>Erlös</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="bike : ${bikes}">
+                <td th:text="${bike.description}"></td>
+                <td th:text="${bike.owner.name}"></td>
+                <td th:text="${bike.status}"></td>
+                <td th:text="${bike.salePrice}"></td>
+                <td th:text="${bike.commission}"></td>
+                <td th:text="${bike.salePrice != null && bike.commission != null ? bike.salePrice.subtract(bike.commission) : ''}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/admin/statistics}" class="btn btn-secondary">Zurück zur Übersicht</a>
+</div>
+<div th:replace="fragments/scripts :: body"></div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

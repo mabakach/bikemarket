@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head-resources :: head"></head>
+<body>
+<div class="container mt-5">
+    <h2>BikeMarket</h2>
+    <h3>Ersteinrichtung: Administrator</h3>
+    <form th:action="@{/admin-setup}" method="post" class="mt-4">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">E-Mail</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Passwort</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="privacyAccepted" name="privacyAccepted" required>
+            <label class="form-check-label" for="privacyAccepted">
+                Ich akzeptiere die <a th:href="@{/privacy}" target="_blank">Datenschutzerklärung</a>
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Administrator anlegen</button>
+    </form>
+    <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
+    <div th:if="${message}" class="alert alert-success mt-3" th:text="${message}"></div>
+</div>
+<div th:replace="fragments/scripts :: body"></div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

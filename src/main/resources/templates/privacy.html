@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head-resources :: head"></head>
+<body>
+<div class="container mt-5">
+    <h1 th:text="#{privacy.title}">Datenschutzerklärung</h1>
+    <div th:utext="${policy}">Dies ist eine Dummy-Datenschutzerklärung für die BikeMarket Applikation.</div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/scripts :: body"></div>
+</body>
+</html>

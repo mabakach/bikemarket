@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head-resources :: head"></head>
+<body>
+<div class="container mt-5">
+    <h2 th:text="'Fahrräder für Börse: ' + ${event.name}"></h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Beschreibung</th>
+                <th>Preis</th>
+                <th>Status</th>
+                <th>Aktionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="bike : ${bikes}">
+                <td th:text="${bike.description}"></td>
+                <td th:text="${bike.price}"></td>
+                <td th:text="${bike.status}"></td>
+                <td>
+                    <form th:if="${bike.status.name() == 'REGISTERED'}" th:action="@{'/agent/accept/' + ${bike.id}}" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-success btn-sm">Entgegengenommen</button>
+                    </form>
+                    <form th:if="${bike.status.name() == 'RECEIVED'}" th:action="@{'/agent/sell/' + ${bike.id}}" method="post" style="display:inline">
+                        <input type="number" step="0.01" name="salePrice" class="form-control mb-1" placeholder="Verkaufspreis" required />
+                        <input type="number" step="0.01" name="commission" class="form-control mb-1" placeholder="Provision" required />
+                        <button type="submit" class="btn btn-primary btn-sm">Verkaufen</button>
+                    </form>
+                    <form th:if="${bike.status.name() == 'RECEIVED'}" th:action="@{'/agent/return/' + ${bike.id}}" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-warning btn-sm">Zurückgeben</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/events}" class="btn btn-secondary">Zurück zur Börsenübersicht</a>
+</div>
+<div th:replace="fragments/scripts :: body"></div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

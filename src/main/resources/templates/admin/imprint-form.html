@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head-resources :: head"></head>
+<body>
+<div class="container mt-5">
+    <h2>Impressum bearbeiten</h2>
+    <form th:action="@{/admin/imprint/edit}" method="post">
+        <div class="mb-3">
+            <label for="content" class="form-label">Impressumstext</label>
+            <textarea class="form-control" id="content" name="content" rows="10" th:text="${imprint}"></textarea>
+        </div>
+        <input type="hidden" name="language" th:value="${language}" />
+        <button type="submit" class="btn btn-primary">Speichern</button>
+        <a th:href="@{/imprint}" class="btn btn-secondary">Abbrechen</a>
+    </form>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/scripts :: body"></div>
+</body>
+</html>

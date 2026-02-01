@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head-resources :: head"></head>
+<body>
+<div class="container mt-5">
+    <h2>Auszahlungsliste</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Verkäufer</th>
+                <th>Beschreibung</th>
+                <th>Markt</th>
+                <th>Verkaufspreis</th>
+                <th>Provision</th>
+                <th>Erlös</th>
+                <th>Aktionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="bike : ${bikes}">
+                <td th:text="${bike.owner.name}"></td>
+                <td th:text="${bike.description}"></td>
+                <td th:text="${bike.event.name}"></td>
+                <td th:text="${bike.salePrice}"></td>
+                <td th:text="${bike.commission}"></td>
+                <td th:text="${bike.salePrice.subtract(bike.commission)}"></td>
+                <td>
+                    <form th:action="@{'/payout/pay/' + ${bike.id}}" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-success btn-sm">Ausgezahlt</button>
+                    </form>
+                    <a th:href="@{'/payout/receipt/' + ${bike.id}}" class="btn btn-primary btn-sm">Quittung</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/events}" class="btn btn-secondary">Zurück zur Börsenübersicht</a>
+</div>
+<div th:replace="fragments/scripts :: body"></div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="container text-center">
+        <a th:href="@{/imprint}" class="text-muted">Impressum</a> |
+        <a th:href="@{/privacy}" class="text-muted">Datenschutzerklärung</a>
+        <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/admin/imprint/edit}" class="text-muted ms-2">Impressum bearbeiten</a>
+        <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/admin/privacy/edit}" class="text-muted ms-2">Datenschutzerklärung bearbeiten</a>
+    </div>
+</footer>
+</body>
+</html>

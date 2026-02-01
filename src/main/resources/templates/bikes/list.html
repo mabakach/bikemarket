@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head-resources :: head"></head>
+<body>
+<div class="container mt-5">
+    <h2>Meine Fahrräder</h2>
+    <a class="btn btn-success mb-3" th:href="@{/bikes/new}">Neues Fahrrad registrieren</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Markt</th>
+                <th>Beschreibung</th>
+                <th>Preis</th>
+                <th>Status</th>
+                <th>Aktionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="bike : ${bikes}">
+                <td th:text="${bike.event.name}"></td>
+                <td th:text="${bike.description}"></td>
+                <td th:text="${bike.price}"></td>
+                <td th:text="${bike.status}"></td>
+                <td>
+                    <a th:if="${bike.status.name() == 'REGISTERED'}" th:href="@{'/bikes/edit/' + ${bike.id}}" class="btn btn-primary btn-sm">Bearbeiten</a>
+                    <form th:if="${bike.status.name() == 'REGISTERED'}" th:action="@{'/bikes/delete/' + ${bike.id}}" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Wirklich löschen?');">Löschen</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="fragments/scripts :: body"></div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
