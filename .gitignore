@@ -1,0 +1,25 @@
+# Ignore Maven output
+/target/
+
+# Ignore IDE files
+/.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Ignore test output
+/test-output/
+
+# Ignore environment files
+.env
+
+# Ignore build tool wrappers
+/.mvn/wrapper/maven-wrapper.jar
