@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head-resources :: head"></head>
+<head>
+    <meta charset="UTF-8">
+    <th:block th:with="pageTitle=${bike.id == null} ? 'Neues Fahrrad registrieren' : 'Fahrrad bearbeiten'" th:replace="~{fragments/head-resources :: head}"></th:block>
+</head>
 <body>
-<div th:replace="fragments/header :: body"></div>
+<th:block th:replace="~{fragments/header :: header}"></th:block>
 <div class="container mt-5">
     <h2 th:text="${bike.id == null} ? 'Neues Fahrrad registrieren' : 'Fahrrad bearbeiten'"></h2>
     <form th:action="${bike.id == null} ? @{/bikes} : @{'/bikes/edit/' + ${bike.id}}" method="post">
@@ -42,7 +45,7 @@
         <a th:href="@{/bikes}" class="btn btn-secondary">Abbrechen</a>
     </form>
 </div>
-<div th:replace="fragments/scripts :: body"></div>
-<div th:replace="fragments/footer :: footer"></div>
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+<th:block th:replace="~{fragments/footer :: footer}"></th:block>
 </body>
 </html>

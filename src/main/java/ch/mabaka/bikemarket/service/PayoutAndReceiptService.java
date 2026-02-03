@@ -1,9 +1,8 @@
 package ch.mabaka.bikemarket.service;
 
-import ch.mabaka.bikemarket.model.Bike;
-import ch.mabaka.bikemarket.model.Receipt;
-import ch.mabaka.bikemarket.repository.BikeRepository;
-import ch.mabaka.bikemarket.repository.ReceiptRepository;
+import ch.mabaka.bikemarket.config.*;
+import ch.mabaka.bikemarket.model.*;
+import ch.mabaka.bikemarket.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

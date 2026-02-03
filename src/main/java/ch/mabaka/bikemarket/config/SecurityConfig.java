@@ -1,5 +1,6 @@
 package ch.mabaka.bikemarket.config;
 
+import ch.mabaka.bikemarket.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,7 +15,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/css/**", "/js/**", "/images/**", "/register", "/login", "/privacy", "/locale").permitAll()
+                .requestMatchers("/css/**", "/js/**", "/images/**", "/register", "/login", "/privacy", "/locale", "/admin-setup").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
@@ -29,9 +30,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // UserDetailsService wird später implementiert
     @Bean
-    public UserDetailsService userDetailsService() {
-        return null;
+    public UserDetailsService userDetailsService(CustomUserDetailsService customUserDetailsService) {
+        return customUserDetailsService;
     }
 }

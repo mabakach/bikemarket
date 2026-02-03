@@ -1,8 +1,5 @@
 <!-- fragments/scripts.html -->
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<body>
+<th:block th:fragment="scripts">
     <script th:src="@{/webjars/popper.js/2.11.6/dist/umd/popper.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
-</body>
-</html>
+</th:block>

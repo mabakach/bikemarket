@@ -10,11 +10,11 @@ DB_PASSWORD="bikemarket"
 DB_PORT="3307"
 
 # Stop and remove existing container if it exists
-docker stop $CONTAINER_NAME 2>/dev/null
-docker rm $CONTAINER_NAME 2>/dev/null
+podman stop $CONTAINER_NAME 2>/dev/null
+podman rm $CONTAINER_NAME 2>/dev/null
 
 # Start new MariaDB container
-docker run --name $CONTAINER_NAME \
+podman run --name $CONTAINER_NAME \
     -e MYSQL_ROOT_PASSWORD=$DB_ROOT_PASSWORD \
     -e MYSQL_DATABASE=$DB_NAME \
     -e MYSQL_USER=$DB_USER \

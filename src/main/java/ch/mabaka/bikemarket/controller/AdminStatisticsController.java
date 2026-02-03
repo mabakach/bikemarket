@@ -1,16 +1,14 @@
 package ch.mabaka.bikemarket.controller;
 
-import ch.mabaka.bikemarket.model.BikeMarketEvent;
-import ch.mabaka.bikemarket.model.Bike;
-import ch.mabaka.bikemarket.service.AdminStatisticsService;
-import ch.mabaka.bikemarket.service.ImprintService;
-import ch.mabaka.bikemarket.service.PrivacyPolicyService;
+import ch.mabaka.bikemarket.model.*;
+import ch.mabaka.bikemarket.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -31,7 +29,7 @@ public class AdminStatisticsController {
     private LocaleResolver localeResolver;
 
     @GetMapping
-    public String showStatistics(Model model, javax.servlet.http.HttpServletRequest request) {
+    public String showStatistics(Model model, HttpServletRequest request) {
         List<BikeMarketEvent> events = statisticsService.getAllEvents();
         model.addAttribute("events", events);
         String lang = localeResolver.resolveLocale(request).getLanguage();

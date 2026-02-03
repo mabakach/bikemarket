@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head-resources :: head"></head>
+<head th:with="pageTitle='Statistiken - BikeMarket'" th:replace="~{fragments/head-resources :: head}"></head>
 <body>
 <div class="container mt-5">
     <h2>Statistiken Fahrradbörsen</h2>
@@ -32,7 +32,7 @@
         <a th:href="@{/admin/privacy/edit}" class="alert-link">Datenschutzerklärung jetzt erfassen</a>
     </div>
 </div>
-<div th:replace="fragments/scripts :: body"></div>
-<div th:replace="fragments/footer :: footer"></div>
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+<th:block th:replace="~{fragments/footer :: footer}"></th:block>
 </body>
 </html>

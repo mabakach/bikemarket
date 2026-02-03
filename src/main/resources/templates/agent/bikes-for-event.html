@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head-resources :: head"></head>
+<head>
+    <meta charset="UTF-8">
+    <th:block th:with="pageTitle='Fahrräder für Börse'" th:replace="~{fragments/head-resources :: head}"></th:block>
+</head>
 <body>
 <div class="container mt-5">
     <h2 th:text="'Fahrräder für Börse: ' + ${event.name}"></h2>
@@ -36,7 +39,7 @@
     </table>
     <a th:href="@{/events}" class="btn btn-secondary">Zurück zur Börsenübersicht</a>
 </div>
-<div th:replace="fragments/scripts :: body"></div>
-<div th:replace="fragments/footer :: footer"></div>
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+<th:block th:replace="~{fragments/footer :: footer}"></th:block>
 </body>
 </html>

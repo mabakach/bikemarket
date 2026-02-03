@@ -1,6 +1,7 @@
 package ch.mabaka.bikemarket.controller;
 
-import ch.mabaka.bikemarket.service.PrivacyPolicyService;
+import ch.mabaka.bikemarket.service.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ public class PrivacyPolicyController {
     private LocaleResolver localeResolver;
 
     @GetMapping("/privacy")
-    public String showPolicy(Model model, javax.servlet.http.HttpServletRequest request) {
+    public String showPolicy(Model model, HttpServletRequest request) {
         String lang = localeResolver.resolveLocale(request).getLanguage();
         model.addAttribute("policy", privacyPolicyService.getPolicy(lang).getContent());
         return "privacy";
@@ -24,7 +25,7 @@ public class PrivacyPolicyController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/privacy/edit")
-    public String editPolicyForm(Model model, javax.servlet.http.HttpServletRequest request) {
+    public String editPolicyForm(Model model, HttpServletRequest request) {
         String lang = localeResolver.resolveLocale(request).getLanguage();
         model.addAttribute("policy", privacyPolicyService.getPolicy(lang).getContent());
         model.addAttribute("language", lang);

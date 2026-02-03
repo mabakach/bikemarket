@@ -1,12 +1,14 @@
 package ch.mabaka.bikemarket.controller;
 
-import ch.mabaka.bikemarket.service.ImprintService;
+import ch.mabaka.bikemarket.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class ImprintController {
@@ -17,7 +19,7 @@ public class ImprintController {
     private LocaleResolver localeResolver;
 
     @GetMapping("/imprint")
-    public String showImprint(Model model, javax.servlet.http.HttpServletRequest request) {
+    public String showImprint(Model model, HttpServletRequest request) {
         String lang = localeResolver.resolveLocale(request).getLanguage();
         model.addAttribute("imprint", imprintService.getImprint(lang).getContent());
         return "imprint";
@@ -25,7 +27,7 @@ public class ImprintController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/imprint/edit")
-    public String editImprintForm(Model model, javax.servlet.http.HttpServletRequest request) {
+    public String editImprintForm(Model model, HttpServletRequest request) {
         String lang = localeResolver.resolveLocale(request).getLanguage();
         model.addAttribute("imprint", imprintService.getImprint(lang).getContent());
         model.addAttribute("language", lang);
