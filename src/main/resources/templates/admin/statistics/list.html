@@ -2,6 +2,8 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head th:with="pageTitle='Statistiken - BikeMarket'" th:replace="~{fragments/head-resources :: head}"></head>
 <body>
+<!-- include the menu fragment -->
+<th:block th:replace="~{fragments/menu :: menu}"></th:block>
 <div class="container mt-5">
     <h2>Statistiken Fahrradbörsen</h2>
     <table class="table table-striped">

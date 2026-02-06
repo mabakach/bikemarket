@@ -2,10 +2,10 @@
 <th:block th:fragment="footer" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <footer class="footer mt-auto py-3 bg-light">
     <div class="container text-center">
-        <a th:href="@{/imprint}" class="text-muted">Impressum</a> |
-        <a th:href="@{/privacy}" class="text-muted">Datenschutzerklärung</a>
-        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/imprint/edit}" class="text-muted ms-2">Impressum bearbeiten</a>
-        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/privacy/edit}" class="text-muted ms-2">Datenschutzerklärung bearbeiten</a>
+        <a th:href="@{/imprint}" class="text-muted" th:text="#{footer.imprint}">Impressum</a> |
+        <a th:href="@{/privacy}" class="text-muted" th:text="#{footer.privacy}">Datenschutzerklärung</a>
+        <a sec:authorize="hasRole(T(ch.mabaka.bikemarket.security.RoleConstants).ADMIN)" th:href="@{/admin/imprint/edit}" class="text-muted ms-2" th:text="#{footer.imprint.edit}">Impressum bearbeiten</a>
+        <a sec:authorize="hasRole(T(ch.mabaka.bikemarket.security.RoleConstants).ADMIN)" th:href="@{/admin/privacy/edit}" class="text-muted ms-2" th:text="#{footer.privacy.edit}">Datenschutzerklärung bearbeiten</a>
     </div>
 </footer>
 </th:block>

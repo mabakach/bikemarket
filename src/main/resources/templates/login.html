@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <th:block th:with="pageTitle='BikeMarket - Login'" th:replace="~{fragments/head-resources :: head}"></th:block>
+    <th:block th:with="pageTitle=#{page.login.title}" th:replace="~{fragments/head-resources :: head}"></th:block>
 </head>
 <body>
 <div class="container mt-5">
-    <h2>BikeMarket</h2>
-    <h3>Login</h3>
+    <h2 th:text="#{app.title}">BikeMarket</h2>
+    <h3 th:text="#{page.login.heading}">Login</h3>
     <form th:action="@{/login}" method="post" class="mt-4">
         <div class="mb-3">
-            <label for="username" class="form-label">E-Mail</label>
+            <label for="username" class="form-label" th:text="#{label.email}">E-Mail</label>
             <input type="text" class="form-control" id="username" name="username" required>
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">Passwort</label>
+            <label for="password" class="form-label" th:text="#{label.password}">Passwort</label>
             <input type="password" class="form-control" id="password" name="password" required>
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" class="btn btn-primary" th:text="#{button.login}">Login</button>
     </form>
     <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
     <div th:if="${message}" class="alert alert-success mt-3" th:text="${message}"></div>

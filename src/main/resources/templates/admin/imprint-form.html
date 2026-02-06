@@ -5,6 +5,8 @@
     <th:block th:with="pageTitle='Impressum bearbeiten'" th:replace="~{fragments/head-resources :: head}"></th:block>
 </head>
 <body>
+<!-- include the menu fragment -->
+<th:block th:replace="~{fragments/menu :: menu}"></th:block>
 <div class="container mt-5">
     <h2>Impressum bearbeiten</h2>
     <form th:action="@{/admin/imprint/edit}" method="post">

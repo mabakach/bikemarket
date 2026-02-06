@@ -5,6 +5,8 @@
     <th:block th:with="pageTitle='Fahrräder für Börse'" th:replace="~{fragments/head-resources :: head}"></th:block>
 </head>
 <body>
+<!-- include the menu fragment -->
+<th:block th:replace="~{fragments/menu :: menu}"></th:block>
 <div class="container mt-5">
     <h2 th:text="'Fahrräder für Börse: ' + ${event.name}"></h2>
     <table class="table table-striped">

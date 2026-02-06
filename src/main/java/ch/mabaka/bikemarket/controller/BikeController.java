@@ -4,10 +4,10 @@ import ch.mabaka.bikemarket.config.CurrencyConfig;
 import ch.mabaka.bikemarket.model.Bike;
 import ch.mabaka.bikemarket.model.BikeMarketEvent;
 import ch.mabaka.bikemarket.model.User;
+import ch.mabaka.bikemarket.repository.UserRepository;
 import ch.mabaka.bikemarket.service.BikeService;
 import ch.mabaka.bikemarket.service.BikeMarketEventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import jakarta.validation.Valid;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/bikes")
@@ -25,9 +26,12 @@ public class BikeController {
     private BikeMarketEventService eventService;
     @Autowired
     private CurrencyConfig currencyConfig;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping
-    public String listBikes(@AuthenticationPrincipal User user, Model model) {
+    public String listBikes(Principal principal, Model model) {
+        User user = userRepository.findByEmail(principal.getName()).orElseThrow();
         model.addAttribute("bikes", bikeService.findByOwner(user));
         return "bikes/list";
     }
@@ -41,11 +45,12 @@ public class BikeController {
     }
 
     @PostMapping
-    public String registerBike(@AuthenticationPrincipal User user,
+    public String registerBike(Principal principal,
                               @RequestParam Long eventId,
                               @Valid Bike bike,
                               BindingResult bindingResult,
                               Model model) {
+        User user = userRepository.findByEmail(principal.getName()).orElseThrow();
         BikeMarketEvent event = eventService.findById(eventId).orElseThrow();
         bike.setOwner(user);
         bike.setEvent(event);
@@ -59,7 +64,8 @@ public class BikeController {
     }
 
     @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable Long id, @AuthenticationPrincipal User user, Model model) {
+    public String showEditForm(@PathVariable Long id, Principal principal, Model model) {
+        User user = userRepository.findByEmail(principal.getName()).orElseThrow();
         Bike bike = bikeService.findById(id).orElseThrow();
         if (!bikeService.canEdit(bike, user)) {
             return "redirect:/bikes";
@@ -72,10 +78,11 @@ public class BikeController {
 
     @PostMapping("/edit/{id}")
     public String updateBike(@PathVariable Long id,
-                             @AuthenticationPrincipal User user,
+                             Principal principal,
                              @RequestParam Long eventId,
                              @RequestParam String description,
                              @RequestParam BigDecimal price) {
+        User user = userRepository.findByEmail(principal.getName()).orElseThrow();
         Bike bike = bikeService.findById(id).orElseThrow();
         if (!bikeService.canEdit(bike, user)) {
             return "redirect:/bikes";
@@ -89,7 +96,8 @@ public class BikeController {
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteBike(@PathVariable Long id, @AuthenticationPrincipal User user) {
+    public String deleteBike(@PathVariable Long id, Principal principal) {
+        User user = userRepository.findByEmail(principal.getName()).orElseThrow();
         Bike bike = bikeService.findById(id).orElseThrow();
         if (!bikeService.canEdit(bike, user)) {
             return "redirect:/bikes";

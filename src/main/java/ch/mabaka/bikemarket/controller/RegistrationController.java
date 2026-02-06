@@ -42,7 +42,14 @@ public class RegistrationController {
         }
     }
 
-    @GetMapping({"/", "/login"})
+    // New handler for the application index (landing page)
+    @GetMapping("/")
+    public String showIndex(Model model) {
+        return "index";
+    }
+
+    // Keep the login page handler and preserve the admin-setup redirect when no admin exists
+    @GetMapping("/login")
     public String showLogin(Model model) {
         if (!registrationService.adminExists()) {
             return "redirect:/admin-setup";

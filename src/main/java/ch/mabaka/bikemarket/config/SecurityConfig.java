@@ -27,7 +27,9 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
-                .loginPage("/login").permitAll()
+                .loginPage("/login")
+                .defaultSuccessUrl("/")
+                .permitAll()
             )
             .logout(withDefaults())
             .csrf(withDefaults());

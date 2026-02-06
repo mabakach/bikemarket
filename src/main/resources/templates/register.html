@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <th:block th:with="pageTitle='BikeMarket - Registrierung'" th:replace="~{fragments/head-resources :: head}"></th:block>
+    <th:block th:with="pageTitle=#{page.register.title}" th:replace="~{fragments/head-resources :: head}"></th:block>
 </head>
 <body>
+<!-- include the menu fragment -->
+<th:block th:replace="~{fragments/menu :: menu}"></th:block>
 <div class="container mt-5">
-    <h2 th:text="#{{app.title}}">BikeMarket</h2>
-    <h3>Registrierung als BikeSeller</h3>
+    <h2 th:text="#{app.title}">BikeMarket</h2>
+    <h3 th:text="#{page.register.heading}">Registrierung als BikeSeller</h3>
     <form th:if="${error} == null" th:action="@{/register}" method="post" class="mt-4">
         <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
+            <label for="name" class="form-label" th:text="#{label.name}">Name</label>
             <input type="text" class="form-control" id="name" name="name" required>
         </div>
         <div class="mb-3">
-            <label for="email" class="form-label">E-Mail</label>
+            <label for="email" class="form-label" th:text="#{label.email}">E-Mail</label>
             <input type="email" class="form-control" id="email" name="email" required>
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">Passwort</label>
+            <label for="password" class="form-label" th:text="#{label.password}">Passwort</label>
             <input type="password" class="form-control" id="password" name="password" required>
         </div>
         <div class="form-check mb-3">
             <input class="form-check-input" type="checkbox" id="privacyAccepted" name="privacyAccepted" required>
             <label class="form-check-label" for="privacyAccepted">
-                Ich akzeptiere die <a th:href="@{/privacy}" target="_blank" th:text="#{privacy.title}">Datenschutzerklärung</a>
+                <span th:text="#{privacy.accept}">Ich akzeptiere die Datenschutzerklärung</span>
             </label>
         </div>
-        <button type="submit" class="btn btn-primary">Registrieren</button>
+        <button type="submit" class="btn btn-primary" th:text="#{button.register}">Registrieren</button>
     </form>
     <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
     <div th:if="${message}" class="alert alert-success mt-3" th:text="${message}"></div>

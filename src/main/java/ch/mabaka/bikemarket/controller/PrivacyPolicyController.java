@@ -23,7 +23,7 @@ public class PrivacyPolicyController {
         return "privacy";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole(T(ch.mabaka.bikemarket.security.RoleConstants).ADMIN)")
     @GetMapping("/admin/privacy/edit")
     public String editPolicyForm(Model model, HttpServletRequest request) {
         String lang = localeResolver.resolveLocale(request).getLanguage();
@@ -32,7 +32,7 @@ public class PrivacyPolicyController {
         return "admin/privacy-form";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole(T(ch.mabaka.bikemarket.security.RoleConstants).ADMIN)")
     @PostMapping("/admin/privacy/edit")
     public String updatePolicy(@RequestParam String content, @RequestParam String language) {
         privacyPolicyService.updatePolicy(language, content);

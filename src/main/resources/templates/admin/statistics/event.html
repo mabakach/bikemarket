@@ -2,6 +2,8 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head th:with="pageTitle='Statistik - ' + ${event.name}" th:replace="~{fragments/head-resources :: head}"></head>
 <body>
+<!-- include the menu fragment -->
+<th:block th:replace="~{fragments/menu :: menu}"></th:block>
 <div class="container mt-5">
     <h2 th:text="'Statistik für Börse: ' + ${event.name}"></h2>
     <div class="mb-3">

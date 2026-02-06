@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <th:block th:with="pageTitle='BikeMarket - Datenschutzerklärung'" th:replace="~{fragments/head-resources :: head}"></th:block>
 </head>
 <body>
+<!-- include the menu fragment -->
+<th:block th:replace="~{fragments/menu :: menu}"></th:block>
 <div class="container mt-5">
     <h1 th:text="#{privacy.title}">Datenschutzerklärung</h1>
     <div th:utext="${policy}">Dies ist eine Dummy-Datenschutzerklärung für die BikeMarket Applikation.</div>

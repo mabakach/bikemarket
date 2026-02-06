@@ -25,7 +25,7 @@ public class ImprintController {
         return "imprint";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole(T(ch.mabaka.bikemarket.security.RoleConstants).ADMIN)")
     @GetMapping("/admin/imprint/edit")
     public String editImprintForm(Model model, HttpServletRequest request) {
         String lang = localeResolver.resolveLocale(request).getLanguage();
@@ -34,7 +34,7 @@ public class ImprintController {
         return "admin/imprint-form";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole(T(ch.mabaka.bikemarket.security.RoleConstants).ADMIN)")
     @PostMapping("/admin/imprint/edit")
     public String updateImprint(@RequestParam String content, @RequestParam String language) {
         imprintService.updateImprint(language, content);

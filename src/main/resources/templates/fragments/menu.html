@@ -1,0 +1,32 @@
+<!-- fragments/menu.html -->
+<th:block th:fragment="menu" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}" th:text="#{app.title}">BikeMarket</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/bikes}" th:text="#{nav.bikes}">Meine Fahrräder</a></li>
+                <li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/events}" th:text="#{nav.events}">Märkte</a></li>
+                <li class="nav-item" sec:authorize="hasRole(T(ch.mabaka.bikemarket.security.RoleConstants).BIKESELLER)"><a class="nav-link" th:href="@{/payout}" th:text="#{nav.payout}">Auszahlungen</a></li>
+                <li class="nav-item" sec:authorize="hasRole(T(ch.mabaka.bikemarket.security.RoleConstants).BIKESELLER)"><a class="nav-link" th:href="@{/seller/listings}" th:text="#{nav.listings}">Meine Inserate</a></li>
+                <li class="nav-item" sec:authorize="hasRole(T(ch.mabaka.bikemarket.security.RoleConstants).ADMIN)"><a class="nav-link" th:href="@{/admin}" th:text="#{nav.admin}">Admin</a></li>
+            </ul>
+
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link" th:href="@{/login}" th:text="#{nav.login}">Login</a></li>
+                <li class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link" th:href="@{/register}" th:text="#{nav.register}">Registrieren</a></li>
+
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post" class="d-inline">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <button type="submit" class="btn btn-link nav-link" style="display:inline; padding:0;" th:text="#{nav.logout}">Abmelden</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</th:block>

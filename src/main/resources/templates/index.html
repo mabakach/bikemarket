@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:with="pageTitle=#{page.index.title}" th:replace="~{fragments/head-resources :: head}"></th:block>
+</head>
+<body>
+
+<!-- include the menu fragment -->
+<th:block th:replace="~{fragments/menu :: menu}"></th:block>
+
+<div class="container mt-5">
+    <h2 th:text="#{app.title}">BikeMarket</h2>
+    <h3 th:text="#{page.index.heading}">Startseite</h3>
+
+    <div class="list-group mt-4">
+        <a class="list-group-item list-group-item-action" th:href="@{/bikes}" sec:authorize="isAuthenticated()" th:text="#{nav.bikes}">Meine Fahrräder</a>
+        <a class="list-group-item list-group-item-action" th:href="@{/events}" sec:authorize="isAuthenticated()" th:text="#{nav.events}">Märkte</a>
+        <a class="list-group-item list-group-item-action" th:href="@{/payout}" sec:authorize="hasRole(T(ch.mabaka.bikemarket.security.RoleConstants).BIKESELLER)" th:text="#{nav.payout}">Auszahlungen</a>
+        <a class="list-group-item list-group-item-action" th:href="@{/seller/listings}" sec:authorize="hasRole(T(ch.mabaka.bikemarket.security.RoleConstants).BIKESELLER)" th:text="#{nav.listings}">Meine Inserate</a>
+        <a class="list-group-item list-group-item-action" th:href="@{/admin}" sec:authorize="hasRole(T(ch.mabaka.bikemarket.security.RoleConstants).ADMIN)" th:text="#{nav.admin}">Admin</a>
+    </div>
+
+</div>
+
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+<th:block th:replace="~{fragments/footer :: footer}"></th:block>
+</body>
+</html>

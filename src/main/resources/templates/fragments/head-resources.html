@@ -1,6 +1,12 @@
 <!-- fragments/head-resources.html -->
 <th:block th:fragment="head">
     <meta charset="UTF-8">
-    <title th:text="${pageTitle != null ? pageTitle : 'BikeMarket'}">BikeMarket</title>
+    <title th:if="${pageTitle != null}" th:text="${pageTitle}">BikeMarket</title>
+    <title th:unless="${pageTitle != null}" th:text="#{app.title}">BikeMarket</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" />
+    <link rel="icon" href="../images/favicon/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="../images/favicon/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="../images/favicon/android-chrome-192x192.png" sizes="192x192" type="image/png">
+    <link rel="icon" href="../images/favicon/android-chrome-512x512.png" sizes="512x512" type="image/png">
+	<link rel="apple-touch-icon" href="../images/favicon/apple-touch-icon-180x180.png" sizes="180x180">
 </th:block>
